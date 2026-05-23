@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,14 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
             holder.tvDisponibilite.setText("Indisponible");
             holder.tvDisponibilite.setBackgroundColor(Color.parseColor("#C62828"));
         }
+
+
+// Dans onBindViewHolder, apres la gestion de la disponibilite :
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), DetailActivity.class);
+            intent.putExtra("livre", livre);
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
