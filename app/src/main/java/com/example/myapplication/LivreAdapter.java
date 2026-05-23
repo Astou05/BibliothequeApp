@@ -1,4 +1,5 @@
 package com.example.myapplication;
+
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +44,20 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
             holder.tvDisponibilite.setBackgroundColor(Color.parseColor("#C62828"));
         }
 
-
-// Dans onBindViewHolder, apres la gestion de la disponibilite :
+        // Clic simple : ouvrir le détail du livre
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), DetailActivity.class);
             intent.putExtra("livre", livre);
             v.getContext().startActivity(intent);
+        });
+
+        // Clic long : ouvrir le formulaire en mode modification
+        holder.itemView.setOnLongClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), AddEditActivity.class);
+            intent.putExtra(AddEditActivity.EXTRA_MODE, AddEditActivity.MODE_EDIT);
+            intent.putExtra(AddEditActivity.EXTRA_LIVRE, livre);
+            intent.putExtra(AddEditActivity.EXTRA_POSITION, holder.getAdapterPosition());
+            return true;
         });
     }
 
